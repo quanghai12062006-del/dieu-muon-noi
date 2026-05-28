@@ -200,7 +200,7 @@
                     playedPhase4 = true;
                     currentVoice = new Audio('voice1.mp3');
                     music.volume = 0.08; // Giảm nhạc nền
-                    currentVoice.playbackRate = 0.7;
+                    currentVoice.playbackRate = 0.75;
                     currentVoice.play().catch(err => console.log("Lỗi: Chưa có file voice1.mp3"));
                     
                     currentVoice.onended = function() {
