@@ -199,7 +199,7 @@
                 if (currentIndex === 3 && !playedPhase4) {
                     playedPhase4 = true;
                     currentVoice = new Audio('voice1.mp3');
-                    music.volume = 0.1; // Giảm nhạc nền
+                    music.volume = 0.08; // Giảm nhạc nền
                     
                     currentVoice.play().catch(err => console.log("Lỗi: Chưa có file voice1.mp3"));
                     
@@ -212,7 +212,7 @@
                 if (currentIndex === paragraphs.length - 1 && !playedPhase5) {
                     playedPhase5 = true;
                     currentVoice = new Audio('voice2.mp3');
-                    music.volume = 0.1; // Giảm nhạc nền
+                    music.volume = 0.08; // Giảm nhạc nền
                     
                     currentVoice.play().catch(err => console.log("Lỗi: Chưa có file voice2.mp3"));
                     
