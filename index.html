@@ -160,6 +160,11 @@
 
         let currentIndex = 0;
         const music = document.getElementById('bg-music');
+        
+        // Các biến kiểm soát giọng đọc
+        let playedPhase4 = false;
+        let playedPhase5 = false;
+        let currentVoice = null;
 
         function startApp() {
             music.play().catch(err => console.log("Cần tương tác để phát nhạc."));
@@ -183,9 +188,43 @@
             setTimeout(() => {
                 textElement.innerText = paragraphs[currentIndex];
                 textElement.style.opacity = 1;
+
+                // Tắt giọng đọc cũ nếu lướt nhanh sang đoạn mới
+                if (currentVoice) {
+                    currentVoice.pause();
+                    currentVoice.currentTime = 0;
+                }
+                
+                // Kích hoạt giọng đọc đoạn 4
+                if (currentIndex === 3 && !playedPhase4) {
+                    playedPhase4 = true;
+                    currentVoice = new Audio('voice1.mp3');
+                    music.volume = 0.15; // Giảm nhạc nền
+                    
+                    currentVoice.play().catch(err => console.log("Lỗi: Chưa có file voice1.mp3"));
+                    
+                    currentVoice.onended = function() {
+                        music.volume = 0.4; // Đọc xong nhạc to lên chút
+                    };
+                }
+                
+                // Kích hoạt giọng đọc đoạn cuối
+                if (currentIndex === paragraphs.length - 1 && !playedPhase5) {
+                    playedPhase5 = true;
+                    currentVoice = new Audio('voice2.mp3');
+                    music.volume = 0.15; // Giảm nhạc nền
+                    
+                    currentVoice.play().catch(err => console.log("Lỗi: Chưa có file voice2.mp3"));
+                    
+                    currentVoice.onended = function() {
+                        music.pause(); // Đọc lời chào cuối xong tắt luôn nhạc
+                    };
+                }
                 
                 if (currentIndex === paragraphs.length - 1) {
                     btn.innerText = "Khép lại câu chuyện 🤍";
+                } else {
+                    btn.innerText = "Đọc tiếp ➡️";
                 }
             }, 400);
         }
